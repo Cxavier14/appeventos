@@ -1,7 +1,7 @@
 using AppEventos.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace AppEventos.Persistence
+namespace AppEventos.Persistence.Context
 {
     public class AppEventosContext : DbContext
     {

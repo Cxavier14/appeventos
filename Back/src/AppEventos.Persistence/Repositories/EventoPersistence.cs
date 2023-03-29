@@ -1,4 +1,5 @@
 ﻿using AppEventos.Domain;
+using AppEventos.Persistence.Context;
 using AppEventos.Persistence.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

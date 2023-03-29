@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AppEventos.Persistence;
+using AppEventos.Persistence.Context;
 using AppEventos.Domain;
 using Microsoft.AspNetCore.Mvc;
 

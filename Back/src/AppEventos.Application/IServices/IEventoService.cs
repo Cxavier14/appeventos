@@ -5,12 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppEventos.Persistence.IRepositories
+namespace AppEventos.Application.IServices
 {
-    public interface IEventoPersistence
+    public interface IEventoService
     {
+        Task<Evento> SaveEvento(Evento evento);
+        Task<Evento> UpdateEvento(int id, Evento evento);
+        Task<bool> DeleteEvento(int id);
+
         Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false);
         Task<Evento[]> GetAllEventosAsync(bool includePalestrante = false);
-        Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrante = false);
+        Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrante = false );
     }
 }
