@@ -76,19 +76,49 @@ namespace AppEventos.Application.Services
             }
         }
 
-        public Task<Evento[]> GetAllEventosAsync(bool includePalestrante = false)
+        public async Task<Evento[]> GetAllEventosAsync(bool includePalestrante = false)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var eventos = await _eventoPersistence.GetAllEventosAsync(includePalestrante);
+                if(eventos == null) return null;
+
+                return eventos;
+            }
+            catch (Exception e)
+            {                
+                throw new Exception(e.Message);
+            }
         }
 
-        public Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
+        public async Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var eventos = await _eventoPersistence.GetAllEventosByTemaAsync(tema, includePalestrante);
+                if(eventos == null) return null;
+
+                return eventos;
+            }
+            catch (Exception e)
+            {                
+                throw new Exception(e.Message);
+            }
         }
 
-        public Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrante = false)
+        public async Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrante = false)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var eventos = await _eventoPersistence.GetEventoByIdAsync(eventoId, includePalestrante);
+                if(eventos == null) return null;
+
+                return eventos;
+            }
+            catch (Exception e)
+            {                
+                throw new Exception(e.Message);
+            }
         }        
     }
 }
