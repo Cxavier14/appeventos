@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppEventos.Persistence.Migrations
 {
     [DbContext(typeof(AppEventosContext))]
-    [Migration("20230322201556_InitialMig")]
-    partial class InitialMig
+    [Migration("20230411185549_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,9 +34,6 @@ namespace AppEventos.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Local")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Lote")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("QtdPessoas")

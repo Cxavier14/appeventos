@@ -32,7 +32,7 @@ namespace AppEventos.Persistence.Repositories
                     .ThenInclude(p => p.Evento);
             }
 
-            query.OrderBy(p => p.Id).Where(p => p.Nome.ToLower().Contains(name.ToLower()));
+            query = query.AsNoTracking().OrderBy(p => p.Id).Where(p => p.Nome.ToLower().Contains(name.ToLower()));
 
             return await query.ToArrayAsync();
         }
@@ -49,7 +49,7 @@ namespace AppEventos.Persistence.Repositories
                     .ThenInclude(pe => pe.Evento);
             }
 
-            query.OrderBy(e => e.Id);
+            query = query.AsNoTracking().OrderBy(e => e.Id);
 
             return await query.ToArrayAsync();
         }
@@ -66,7 +66,7 @@ namespace AppEventos.Persistence.Repositories
                     .ThenInclude(pe => pe.Evento);
             }
 
-            query.OrderBy(e => e.Id).Where(e => e.Id == palestranteId);
+            query = query.AsNoTracking().OrderBy(e => e.Id).Where(e => e.Id == palestranteId);
 
             return await query.FirstOrDefaultAsync();
         }

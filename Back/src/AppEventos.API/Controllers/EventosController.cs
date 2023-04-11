@@ -73,21 +73,52 @@ namespace AppEventos.API.Controllers
         }
 
         [HttpPost]
-        public string Post()
+        public async Task<IActionResult> Post(Evento model)
         {
-            return "Exemplo de post";
+            try
+            {
+                var evento = await _eventoService.SaveEvento(model);
+                if (evento == null) return BadRequest("Erro ao tentar salvar evento!");
+
+                return Ok(evento);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Erro ao tentar adicionar evento. Erro: {e.Message}");
+            }
         }
 
         [HttpPut("{id}")]
-        public string Put(int id)
+        public async Task<IActionResult> Put(int id, Evento model)
         {
-            return $"Exemplo de put com id = {id}";
+            try
+            {
+                var evento = await _eventoService.UpdateEvento(id, model);
+                if (evento == null) return BadRequest("Erro ao tentar atualizar evento!");
+
+                return Ok(evento);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Erro ao tentar atualizar evento. Erro: {e.Message}");
+            }
         }
 
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return $"Exemplo de delete com id = {id}";
+            try
+            {
+                return await _eventoService.DeleteEvento(id) ? 
+                    Ok("Evento Salvo com sucesso!") : BadRequest("Evento não deletado!");
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Erro ao tentar deletar evento. Erro: {e.Message}");
+            }
         }
     }
 }
