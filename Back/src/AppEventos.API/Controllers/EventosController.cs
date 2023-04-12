@@ -112,7 +112,7 @@ namespace AppEventos.API.Controllers
             try
             {
                 return await _eventoService.DeleteEvento(id) ? 
-                    Ok("Evento Salvo com sucesso!") : BadRequest("Evento não deletado!");
+                    Ok("Evento deletado com sucesso!") : BadRequest("Evento não deletado!");
             }
             catch (Exception e)
             {
