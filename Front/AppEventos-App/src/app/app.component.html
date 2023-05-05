@@ -1,6 +1,18 @@
 
 <div class="container">
   <app-nav></app-nav>
+</div>
+
+<div class="container">
   <app-eventos></app-eventos>
   <router-outlet></router-outlet>
 </div>
+
+<!-- <ngx-spinner type="ball-scale-multiple"></ngx-spinner> -->
+<ngx-spinner
+  bdColor = "rgba(0, 0, 0, 0.8)"
+  size = "medium" color = "#fff"
+  type = "ball-scale-pulse"
+  [fullScreen] = "true">
+  <p style="color: white" > Carregando... </p>
+</ngx-spinner>
