@@ -15,7 +15,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './shared/nav/nav.component';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
