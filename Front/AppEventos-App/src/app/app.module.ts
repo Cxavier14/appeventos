@@ -18,10 +18,15 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 import { TitleComponent } from './shared/title/title.component';
+import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
+import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 import { EventoService } from './services/evento.service';
 
@@ -37,7 +42,12 @@ import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
     TitleComponent,
     ContatosComponent,
     DashboardComponent,
-    PerfilComponent
+    PerfilComponent,
+    EventoDetalheComponent,
+    EventoListaComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent
    ],
   imports: [
     BrowserModule,
