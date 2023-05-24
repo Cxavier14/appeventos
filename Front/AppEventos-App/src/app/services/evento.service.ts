@@ -7,7 +7,8 @@ import { Evento } from '../models/evento';
   // {} providedIn: 'root' } option of dependency injectable
 )
 export class EventoService {
-  baseURL = 'https://localhost:44365/api/eventos';
+  //baseURL = 'https://localhost:44365/api/eventos';
+  baseURL = 'https://localhost:5001/api/eventos';
 
   constructor(private http: HttpClient) { }
 
