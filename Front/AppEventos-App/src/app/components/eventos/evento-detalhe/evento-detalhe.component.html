@@ -4,24 +4,33 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label>Tema</label>
-          <input type="text" class="form-control is-invalid" formControlName="tema" placeholder="Insira o Tema">
-          <div class="invalid-feedback">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': fc.tema.errors && fc.tema.touched}"
+          formControlName="tema" placeholder="Insira o Tema">
+          <div *ngIf="fc.tema.errors?.required" class="invalid-feedback">
             Tema é obrigatório
+          </div>
+          <div *ngIf="fc.tema.errors?.minlength" class="invalid-feedback">
+            Tema deve conter no mínimo 4 caracteres
+          </div>
+          <div *ngIf="fc.tema.errors?.maxlength" class="invalid-feedback">
+            Tema deve conter no máximo 50 caracteres
           </div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-8">
           <label>Local</label>
-          <input type="text" class="form-control is-invalid" formControlName="local" placeholder="">
-          <div class="invalid-feedback">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': fc.local.errors && fc.local.touched}"
+          formControlName="local" placeholder="">
+          <div *ngIf="fc.tema.errors?.required" class="invalid-feedback">
             Local é obrigatório
           </div>
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
-          <input type="datetime" class="form-control is-invalid" formControlName="dataEvento" placeholder="">
-          <div class="invalid-feedback">
+          <input type="datetime" class="form-control" [ngClass]="{'is-invalid': fc.dataEvento.errors && fc.dataEvento.touched}"
+          formControlName="dataEvento" placeholder="">
+          <div *ngIf="fc.tema.errors?.required" class="invalid-feedback">
             Data e hora são obrigatórios
           </div>
         </div>
@@ -29,29 +38,39 @@
       <div class="form-row">
         <div class="form-group col-md-2">
           <label>Quantidade de Pessoas</label>
-          <input type="text" class="form-control is-invalid" formControlName="qtdPessoas" placeholder="">
-          <div class="invalid-feedback">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': fc.qtdPessoas.errors && fc.qtdPessoas.touched}"
+          formControlName="qtdPessoas" placeholder="">
+          <div *ngIf="fc.qtdPessoas.errors?.required" class="invalid-feedback">
             Quantidade de pessoas é obrigatório
+          </div>
+          <div *ngIf="fc.qtdPessoas.errors?.maxlength" class="invalid-feedback">
+            Limite máximo de pessoas é de 120.000
           </div>
         </div>
         <div class="form-group col-md-2">
           <label>Telefone</label>
-          <input type="text" class="form-control is-invalid" formControlName="telefone" placeholder="(00) 90000-0000">
-          <div class="invalid-feedback">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': fc.telefone.errors && fc.telefone.touched}"
+          formControlName="telefone" placeholder="(00) 90000-0000">
+          <div *ngIf="fc.telefone.errors?.required" class="invalid-feedback">
             Telefone é obrigatório
           </div>
         </div>
         <div class="form-group col-md-4">
           <label>Email</label>
-          <input type="text" class="form-control is-invalid" formControlName="email" placeholder="e-mail">
-          <div class="invalid-feedback">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': fc.email.errors && fc.email.touched}"
+          formControlName="email" placeholder="e-mail">
+          <div *ngIf="fc.email.errors?.required" class="invalid-feedback">
             Email é obrigatório
+          </div>
+          <div *ngIf="fc.email.errors?.email" class="invalid-feedback">
+            Email deve ser válido
           </div>
         </div>
         <div class="form-group col-md-4">
           <label>Imagem</label>
-          <input type="text" class="form-control is-invalid" formControlName="imagemURL" placeholder="imagem">
-          <div class="invalid-feedback">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': fc.imagemURL.errors && fc.imagemURL.touched}"
+          formControlName="imagemURL" placeholder="imagem">
+          <div *ngIf="fc.imagemURL.errors?.required" class="invalid-feedback">
             imagem é obrigatório
           </div>
         </div>
