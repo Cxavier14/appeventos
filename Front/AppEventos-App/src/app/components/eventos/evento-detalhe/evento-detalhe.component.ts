@@ -24,10 +24,14 @@ export class EventoDetalheComponent implements OnInit {
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
-      qtdPessoas: ['', [Validators.required, Validators.maxLength(120000)]],
+      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       imagemURL: ['', Validators.required],
     });
+  }
+
+  public resetForm(): void {
+    this.form.reset();
   }
 }
