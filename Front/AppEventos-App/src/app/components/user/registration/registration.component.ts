@@ -10,9 +10,7 @@ import { ValidatorField } from '@app/helpers/validator-field';
 export class RegistrationComponent implements OnInit {
 
   form: FormGroup = new FormGroup({})
-  get fc(): any {
-    return this.form.controls;
-  }
+  get fc(): any { return this.form.controls; }
 
   constructor(private fb: FormBuilder) { }
 
