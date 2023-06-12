@@ -1,4 +1,5 @@
-﻿using AppEventos.Application.IServices;
+﻿using AppEventos.Application.DTOs;
+using AppEventos.Application.IServices;
 using AppEventos.Domain;
 using AppEventos.Persistence.IRepositories;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,7 @@ namespace AppEventos.Application.Services
             _eventoPersistence = eventoPersistence;
         }
 
-        public async Task<Evento> SaveEvento(Evento evento)
+        public async Task<EventoDTO> SaveEvento(EventoDTO evento)
         {
             try
             {
@@ -38,7 +39,7 @@ namespace AppEventos.Application.Services
             }
         }
 
-        public async Task<Evento> UpdateEvento(int id, Evento evento)
+        public async Task<EventoDTO> UpdateEvento(int id, EventoDTO evento)
         {
             try
             {
@@ -76,7 +77,7 @@ namespace AppEventos.Application.Services
             }
         }
 
-        public async Task<Evento[]> GetAllEventosAsync(bool includePalestrante = false)
+        public async Task<EventoDTO[]> GetAllEventosAsync(bool includePalestrante = false)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace AppEventos.Application.Services
             }
         }
 
-        public async Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
+        public async Task<EventoDTO[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace AppEventos.Application.Services
             }
         }
 
-        public async Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrante = false)
+        public async Task<EventoDTO> GetEventoByIdAsync(int eventoId, bool includePalestrante = false)
         {
             try
             {

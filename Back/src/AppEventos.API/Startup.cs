@@ -40,6 +40,8 @@ namespace AppEventos.API
                     .AddNewtonsoftJson(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IBasePersistence, BasePersistence>();
             services.AddScoped<IEventoPersistence, EventoPersistence>();

@@ -4,6 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
 <ItemGroup>
     <ProjectReference Include="..\AppEventos.Domain\AppEventos.Domain.csproj" />
     <ProjectReference Include="..\AppEventos.Persistence\AppEventos.Persistence.csproj" />

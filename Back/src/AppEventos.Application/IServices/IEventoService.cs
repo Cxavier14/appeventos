@@ -1,4 +1,5 @@
-﻿using AppEventos.Domain;
+﻿using AppEventos.Application.DTOs;
+using AppEventos.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace AppEventos.Application.IServices
 {
     public interface IEventoService
     {
-        Task<Evento> SaveEvento(Evento evento);
-        Task<Evento> UpdateEvento(int id, Evento evento);
+        Task<EventoDTO> SaveEvento(EventoDTO evento);
+        Task<EventoDTO> UpdateEvento(int id, EventoDTO evento);
         Task<bool> DeleteEvento(int id);
 
-        Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false);
-        Task<Evento[]> GetAllEventosAsync(bool includePalestrante = false);
-        Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrante = false );
+        Task<EventoDTO[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false);
+        Task<EventoDTO[]> GetAllEventosAsync(bool includePalestrante = false);
+        Task<EventoDTO> GetEventoByIdAsync(int eventoId, bool includePalestrante = false );
     }
 }

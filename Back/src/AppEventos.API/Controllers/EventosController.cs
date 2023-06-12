@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using AppEventos.Application.IServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using AppEventos.API.DTOs;
 
 namespace AppEventos.API.Controllers
 {
@@ -27,13 +28,13 @@ namespace AppEventos.API.Controllers
             try
             {
                 var eventos = await _eventoService.GetAllEventosAsync(true);
-                if(eventos == null) return NotFound("Nenhum evento encontrado");
+                if (eventos == null) return NotFound("Nenhum evento encontrado");
 
                 return Ok(eventos);
             }
             catch (Exception e)
-            {                
-                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
                 $"Erro ao tentar recuperar eventos. Erro: {e.Message}");
             }
         }
@@ -44,13 +45,13 @@ namespace AppEventos.API.Controllers
             try
             {
                 var evento = await _eventoService.GetEventoByIdAsync(id, true);
-                if(evento == null) return NotFound("Nenhum evento encontrado");
+                if (evento == null) return NotFound("Nenhum evento encontrado");
 
                 return Ok(evento);
             }
             catch (Exception e)
-            {                
-                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
                 $"Erro ao tentar recuperar evento. Erro: {e.Message}");
             }
         }
@@ -61,13 +62,13 @@ namespace AppEventos.API.Controllers
             try
             {
                 var evento = await _eventoService.GetAllEventosByTemaAsync(tema, true);
-                if(evento == null) return NotFound("Nenhum evento com este tema encontrado");
+                if (evento == null) return NotFound("Nenhum evento com este tema encontrado");
 
                 return Ok(evento);
             }
             catch (Exception e)
-            {                
-                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
                 $"Erro ao tentar recuperar evento. Erro: {e.Message}");
             }
         }
@@ -111,7 +112,7 @@ namespace AppEventos.API.Controllers
         {
             try
             {
-                return await _eventoService.DeleteEvento(id) ? 
+                return await _eventoService.DeleteEvento(id) ?
                     Ok("Evento deletado com sucesso!") : BadRequest("Evento não deletado!");
             }
             catch (Exception e)
