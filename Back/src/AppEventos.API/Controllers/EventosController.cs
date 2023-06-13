@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AppEventos.Persistence.Context;
-using AppEventos.Domain;
 using Microsoft.AspNetCore.Mvc;
 using AppEventos.Application.IServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using AppEventos.API.DTOs;
+using AppEventos.Application.DTOs;
 
 namespace AppEventos.API.Controllers
 {
@@ -74,7 +70,7 @@ namespace AppEventos.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Evento model)
+        public async Task<IActionResult> Post(EventoDTO model)
         {
             try
             {
@@ -91,7 +87,7 @@ namespace AppEventos.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Evento model)
+        public async Task<IActionResult> Put(int id, EventoDTO model)
         {
             try
             {
