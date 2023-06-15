@@ -24,7 +24,7 @@ namespace AppEventos.API.Controllers
             try
             {
                 var eventos = await _eventoService.GetAllEventosAsync(true);
-                if (eventos == null) return NotFound("Nenhum evento encontrado");
+                if (eventos == null) return NoContent();
 
                 return Ok(eventos);
             }
@@ -41,7 +41,7 @@ namespace AppEventos.API.Controllers
             try
             {
                 var evento = await _eventoService.GetEventoByIdAsync(id, true);
-                if (evento == null) return NotFound("Nenhum evento encontrado");
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -58,7 +58,7 @@ namespace AppEventos.API.Controllers
             try
             {
                 var evento = await _eventoService.GetAllEventosByTemaAsync(tema, true);
-                if (evento == null) return NotFound("Nenhum evento com este tema encontrado");
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -75,7 +75,7 @@ namespace AppEventos.API.Controllers
             try
             {
                 var evento = await _eventoService.SaveEvento(model);
-                if (evento == null) return BadRequest("Erro ao tentar salvar evento!");
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -92,7 +92,7 @@ namespace AppEventos.API.Controllers
             try
             {
                 var evento = await _eventoService.UpdateEvento(id, model);
-                if (evento == null) return BadRequest("Erro ao tentar atualizar evento!");
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -108,8 +108,11 @@ namespace AppEventos.API.Controllers
         {
             try
             {
+                var result = _eventoService.GetEventoByIdAsync(id);
+                if (result == null) return NoContent();
+
                 return await _eventoService.DeleteEvento(id) ?
-                    Ok("Evento deletado com sucesso!") : BadRequest("Evento não deletado!");
+                    Ok("Evento deletado com sucesso!") : throw new Exception("Ocorreu um erro inesperado!");
             }
             catch (Exception e)
             {
