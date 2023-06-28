@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+
+import { EventoService } from './../../../services/evento.service';
+import { Evento } from '@app/models/evento';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -7,16 +15,52 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./evento-detalhe.component.scss']
 })
 export class EventoDetalheComponent implements OnInit {
-
+  locale = 'pt-br'
   form: FormGroup = new FormGroup({});
+  evento = {} as Evento;
+
   get fc(): any {
     return this.form.controls;
   }
 
-  constructor(private fb: FormBuilder) { }
+  get bsConfig(): any {
+    return {
+      isAnimated: true, adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY hh:mm a', containerClass: 'theme-default',
+      showWeekNumbers: false
+    };
+  }
+
+  constructor(private fb: FormBuilder, private localeService: BsLocaleService,
+              private actRoute: ActivatedRoute, private eventoService: EventoService,
+              private spinner: NgxSpinnerService, private toastr: ToastrService)
+   {
+    this.localeService.use(this.locale);
+   }
+
+   public loadEvent(): void {
+    const eventId = this.actRoute.snapshot.paramMap.get('id');
+
+    if(eventId !== null){
+      this.spinner.show();
+      this.eventoService.getEventoById(+eventId).subscribe(
+        (evento: Evento) => {
+          this.evento = {...evento};
+          this.form.patchValue(evento);
+        },
+        (error) => {
+          this.spinner.hide();
+          this.toastr.error('Erro ao carregar Evento', 'Erro!');
+          console.error(error);
+        },
+        () => this.spinner.hide()
+      );
+    }
+   }
 
   ngOnInit(): void {
-    this.validation()
+    this.loadEvent();
+    this.validation();
   }
 
   public validation(): void {

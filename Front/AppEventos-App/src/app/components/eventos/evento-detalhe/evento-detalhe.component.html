@@ -29,7 +29,8 @@
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
           <input type="datetime" class="form-control" [ngClass]="cssValidator(fc.dataEvento)"
-          formControlName="dataEvento" placeholder="">
+          value="{{ evento.dataEvento | DateTimePipeFormat }}"
+          formControlName="dataEvento" bsDatepicker [bsConfig]="bsConfig">
           <div *ngIf="fc.tema.errors?.required && fc.dataEvento.touched" class="invalid-feedback">
             Data e hora são obrigatórios
           </div>
