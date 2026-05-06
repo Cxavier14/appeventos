@@ -108,7 +108,7 @@ namespace AppEventos.API.Controllers
         {
             try
             {
-                var result = _eventoService.GetEventoByIdAsync(id);
+                var result = await _eventoService.GetEventoByIdAsync(id);
                 if (result == null) return NoContent();
 
                 return await _eventoService.DeleteEvento(id) ?

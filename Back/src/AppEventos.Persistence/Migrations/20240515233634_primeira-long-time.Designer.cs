@@ -3,14 +3,16 @@ using System;
 using AppEventos.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AppEventos.Persistence.Migrations
 {
     [DbContext(typeof(AppEventosContext))]
-    partial class AppEventosContextModelSnapshot : ModelSnapshot
+    [Migration("20240515233634_primeira-long-time")]
+    partial class primeiralongtime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

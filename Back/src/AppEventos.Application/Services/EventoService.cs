@@ -41,9 +41,9 @@ namespace AppEventos.Application.Services
                 }
                 return null;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new Exception(e.Message);
+                throw;
             }
         }
 
@@ -68,9 +68,9 @@ namespace AppEventos.Application.Services
                 }
                 return null;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new Exception(e.Message);
+                throw;
             }
         }
 
@@ -78,15 +78,15 @@ namespace AppEventos.Application.Services
         {
             try
             {
-                var result = await _eventoPersistence.GetEventoByIdAsync(id, false);
-                if (result == null) throw new Exception("Evento não encontrado!");
+                var result = await _eventoPersistence.GetEventoByIdAsync(id, false) 
+                    ?? throw new Exception("Evento não encontrado!");
                 
                 _basePersistence.Delete<Evento>(result);
                 return await _basePersistence.SaveChangesAsync();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new Exception(e.Message);
+                throw;
             }
         }
 
@@ -101,9 +101,9 @@ namespace AppEventos.Application.Services
 
                 return result;
             }
-            catch (Exception e)
+            catch (Exception)
             {                
-                throw new Exception(e.Message);
+                throw;
             }
         }
 
@@ -118,9 +118,9 @@ namespace AppEventos.Application.Services
 
                 return result;
             }
-            catch (Exception e)
+            catch (Exception)
             {                
-                throw new Exception(e.Message);
+                throw;
             }
         }
 
@@ -135,9 +135,9 @@ namespace AppEventos.Application.Services
 
                 return result;
             }
-            catch (Exception e)
+            catch (Exception)
             {                
-                throw new Exception(e.Message);
+                throw;
             }
         }        
     }
