@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -16,7 +16,7 @@ import { Evento } from '@app/models/evento';
 })
 export class EventoDetalheComponent implements OnInit {
   locale = 'pt-br'
-  form: FormGroup = new FormGroup({});
+  form: UntypedFormGroup = new UntypedFormGroup({});
   evento = {} as Evento;
 
   get fc(): any {
@@ -31,7 +31,7 @@ export class EventoDetalheComponent implements OnInit {
     };
   }
 
-  constructor(private fb: FormBuilder, private localeService: BsLocaleService,
+  constructor(private fb: UntypedFormBuilder, private localeService: BsLocaleService,
               private actRoute: ActivatedRoute, private eventoService: EventoService,
               private spinner: NgxSpinnerService, private toastr: ToastrService)
    {
@@ -79,7 +79,7 @@ export class EventoDetalheComponent implements OnInit {
     this.form.reset();
   }
 
-  public cssValidator(fieldForm: FormControl): any {
+  public cssValidator(fieldForm: UntypedFormControl): any {
     return { 'is-invalid': fieldForm.errors && fieldForm.touched}
   }
 }

@@ -1,9 +1,9 @@
-import { AbstractControl, FormGroup } from "@angular/forms";
+import { AbstractControl, UntypedFormGroup } from "@angular/forms";
 
 export class ValidatorField {
   static MustMatch(controlName: string, matchingcontrolName: string): any {
     return (group: AbstractControl) => {
-      const formGroup = group as FormGroup;
+      const formGroup = group as UntypedFormGroup;
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingcontrolName];
 

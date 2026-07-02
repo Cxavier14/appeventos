@@ -503,3 +503,6 @@ Thumbs.db
 *.db
 *.db-shm
 *.db-wal
+
+# Angular
+.angular
