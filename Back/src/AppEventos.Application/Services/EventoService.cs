@@ -3,12 +3,9 @@ using AppEventos.Application.Helpers;
 using AppEventos.Application.IServices;
 using AppEventos.Domain;
 using AppEventos.Persistence.IRepositories;
-using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AppEventos.Application.Services
@@ -36,7 +33,7 @@ namespace AppEventos.Application.Services
 
                 if (await _basePersistence.SaveChangesAsync())
                 {
-                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id, false);
+                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id);
 
                     return AppEventoMapper.ToDto(result);
                 }
@@ -63,7 +60,7 @@ namespace AppEventos.Application.Services
 
                 if (await _basePersistence.SaveChangesAsync())
                 {
-                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id, false);
+                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id);
 
                     return AppEventoMapper.ToDto(result);
                 }

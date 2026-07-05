@@ -18,12 +18,12 @@ namespace AppEventos.Application.Helpers
         public static partial EventoDTO ToDto(Evento evento);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
-        [MapperIgnoreSource(nameof(EventoDTO.PalestrantesEventos))]
+        [MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
         [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
         public static partial Evento ToEntity(EventoDTO dto);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
-        [MapperIgnoreSource(nameof(EventoDTO.PalestrantesEventos))]
+        [MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
         [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
         public static partial void UpdateEntity(EventoDTO dto, Evento entity);
 
