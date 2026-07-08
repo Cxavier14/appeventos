@@ -14,8 +14,8 @@ namespace AppEventos.Application.IServices
         Task<EventoDTO> UpdateEvento(int id, EventoDTO evento);
         Task<bool> DeleteEvento(int id);
 
-        Task<EventoDTO[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false);
-        Task<EventoDTO[]> GetAllEventosAsync(bool includePalestrante = false);
+        Task<List<EventoDTO>> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false);
+        Task<List<EventoDTO>> GetAllEventosAsync(bool includePalestrante = false);
         Task<EventoDTO> GetEventoByIdAsync(int eventoId, bool includePalestrante = false );
     }
 }

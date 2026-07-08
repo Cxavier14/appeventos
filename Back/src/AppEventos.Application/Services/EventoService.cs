@@ -1,48 +1,47 @@
 ﻿using AppEventos.Application.DTOs;
+using AppEventos.Application.Helpers;
 using AppEventos.Application.IServices;
 using AppEventos.Domain;
 using AppEventos.Persistence.IRepositories;
-using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AppEventos.Application.Services
 {
     public class EventoService : IEventoService
     {
+        private readonly ILogger<EventoService> _logger;
         private readonly IBasePersistence _basePersistence;
         private readonly IEventoPersistence _eventoPersistence;
-        private readonly IMapper _mapper;
 
-        public EventoService(IBasePersistence basePersistence, IEventoPersistence eventoPersistence, IMapper mapper)
+        public EventoService(IBasePersistence basePersistence, IEventoPersistence eventoPersistence, ILogger<EventoService> logger)
         {
             _basePersistence = basePersistence;
             _eventoPersistence = eventoPersistence;
-            _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<EventoDTO> SaveEvento(EventoDTO model)
         {
-            try 
+            try
             {
-                var evento = _mapper.Map<Evento>(model);
+                var evento = AppEventoMapper.ToEntity(model);
 
                 _basePersistence.Save<Evento>(evento);
 
                 if (await _basePersistence.SaveChangesAsync())
                 {
-                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id, false);
+                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id);
 
-                    return _mapper.Map<EventoDTO>(result);
+                    return AppEventoMapper.ToDto(result);
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao tentar salvar evento.");
                 throw;
             }
         }
@@ -55,21 +54,21 @@ namespace AppEventos.Application.Services
                 if (evento == null) return null;
 
                 model.Id = evento.Id;
-
-                _mapper.Map(model, evento);
+                AppEventoMapper.UpdateEntity(model, evento);
 
                 _basePersistence.Update<Evento>(evento);
 
                 if (await _basePersistence.SaveChangesAsync())
                 {
-                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id, false);
+                    var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id);
 
-                    return _mapper.Map<EventoDTO>(result);
+                    return AppEventoMapper.ToDto(result);
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao tentar atualizar evento de ID: {EventoId}", id);
                 throw;
             }
         }
@@ -78,48 +77,49 @@ namespace AppEventos.Application.Services
         {
             try
             {
-                var result = await _eventoPersistence.GetEventoByIdAsync(id, false) 
+                var result = await _eventoPersistence.GetEventoByIdAsync(id, false)
                     ?? throw new Exception("Evento não encontrado!");
-                
+
                 _basePersistence.Delete<Evento>(result);
                 return await _basePersistence.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro ao tentar deletar evento de ID: {EventoId}", id);
                 throw;
             }
         }
 
-        public async Task<EventoDTO[]> GetAllEventosAsync(bool includePalestrante = false)
+        public async Task<List<EventoDTO>> GetAllEventosAsync(bool includePalestrante = false)
         {
             try
             {
                 var eventos = await _eventoPersistence.GetAllEventosAsync(includePalestrante);
-                if(eventos == null) return null;
+                if (eventos == null)
+                    return null;
 
-                var result = _mapper.Map<EventoDTO[]>(eventos);
-
-                return result;
+                return AppEventoMapper.ToDTOList(eventos);
             }
-            catch (Exception)
-            {                
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar recuperar todos os eventos.");
                 throw;
             }
         }
 
-        public async Task<EventoDTO[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
+        public async Task<List<EventoDTO>> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
         {
             try
             {
                 var eventos = await _eventoPersistence.GetAllEventosByTemaAsync(tema, includePalestrante);
-                if(eventos == null) return null;
+                if (eventos == null)
+                    return null;
 
-                var result = _mapper.Map<EventoDTO[]>(eventos);
-
-                return result;
+                return AppEventoMapper.ToDTOList(eventos);
             }
-            catch (Exception)
-            {                
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar recuperar eventos por tema: {Tema}", tema);
                 throw;
             }
         }
@@ -129,16 +129,16 @@ namespace AppEventos.Application.Services
             try
             {
                 var evento = await _eventoPersistence.GetEventoByIdAsync(eventoId, includePalestrante);
-                if(evento == null) return null;
+                if (evento == null)
+                    return null;
 
-                var result = _mapper.Map<EventoDTO>(evento);
-
-                return result;
+                return AppEventoMapper.ToDto(evento);
             }
-            catch (Exception)
-            {                
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar recuperar evento por ID: {EventoId}", eventoId);
                 throw;
             }
-        }        
+        }
     }
 }

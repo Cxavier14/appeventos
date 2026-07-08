@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using AppEventos.Application.DTOs;
 using AppEventos.Application.IServices;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using AppEventos.Application.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace AppEventos.API.Controllers
 {
