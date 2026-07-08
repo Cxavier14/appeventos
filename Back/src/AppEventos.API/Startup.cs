@@ -1,22 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AppEventos.Application.IServices;
 using AppEventos.Application.Services;
-using AppEventos.Persistence;
 using AppEventos.Persistence.Context;
 using AppEventos.Persistence.IRepositories;
 using AppEventos.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace AppEventos.API
@@ -39,8 +31,6 @@ namespace AppEventos.API
             services.AddControllers()
                     .AddNewtonsoftJson(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IBasePersistence, BasePersistence>();
