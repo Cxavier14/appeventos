@@ -3,6 +3,7 @@ using AppEventos.Domain;
 using Riok.Mapperly.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -18,12 +19,12 @@ namespace AppEventos.Application.Helpers
         public static partial EventoDTO ToDto(Evento evento);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
-        [MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
+        //[MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
         [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
         public static partial Evento ToEntity(EventoDTO dto);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
-        [MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
+        //[MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
         [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
         public static partial void UpdateEntity(EventoDTO dto, Evento entity);
 
@@ -74,7 +75,15 @@ namespace AppEventos.Application.Helpers
         private static string DateTimeToString(DateTime? date) =>
             date?.ToString("dd/MM/yyyy") ?? string.Empty;
 
-        private static DateTime? StringToDateTime(string date) =>
-            DateTime.TryParse(date, out var parsed) ? parsed : null;
+        private static DateTime? StringToDateTime(string date){
+            if (!DateTime.TryParseExact(
+                date,
+                "dd/MM/yyyy",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out var parsed)) return null;
+
+            return DateTime.SpecifyKind(parsed, DateTimeKind.Utc);
+        }
     }
 }

@@ -1,15 +1,11 @@
-using AppEventos.Application.IServices;
-using AppEventos.Application.Services;
-using AppEventos.Persistence.Context;
-using AppEventos.Persistence.IRepositories;
-using AppEventos.Persistence.Repositories;
+using AppEventos.Application;
+using AppEventos.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace AppEventos.API
 {
@@ -25,16 +21,13 @@ namespace AppEventos.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppEventosContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
-            );
+            services.AddPersistence(Configuration);
+            services.AddApplication();
+
             services.AddControllers()
-                    .AddNewtonsoftJson(
-                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
-            services.AddScoped<IEventoService, EventoService>();
-            services.AddScoped<IBasePersistence, BasePersistence>();
-            services.AddScoped<IEventoPersistence, EventoPersistence>();
 
             services.AddCors();
             services.AddSwaggerGen(c =>
