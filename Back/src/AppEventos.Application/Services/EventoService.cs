@@ -27,7 +27,7 @@ namespace AppEventos.Application.Services
         {
             try
             {
-                var evento = AppEventoMapper.ToEntity(model);
+                var evento = EventoMapper.ToEntity(model);
 
                 _basePersistence.Save<Evento>(evento);
 
@@ -35,7 +35,7 @@ namespace AppEventos.Application.Services
                 {
                     var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id);
 
-                    return AppEventoMapper.ToDto(result);
+                    return EventoMapper.ToDto(result);
                 }
                 return null;
             }
@@ -54,7 +54,7 @@ namespace AppEventos.Application.Services
                 if (evento == null) return null;
 
                 model.Id = evento.Id;
-                AppEventoMapper.UpdateEntity(model, evento);
+                EventoMapper.UpdateEntity(model, evento);
 
                 _basePersistence.Update<Evento>(evento);
 
@@ -62,7 +62,7 @@ namespace AppEventos.Application.Services
                 {
                     var result = await _eventoPersistence.GetEventoByIdAsync(evento.Id);
 
-                    return AppEventoMapper.ToDto(result);
+                    return EventoMapper.ToDto(result);
                 }
                 return null;
             }
@@ -98,7 +98,7 @@ namespace AppEventos.Application.Services
                 if (eventos == null)
                     return null;
 
-                return AppEventoMapper.ToDTOList(eventos);
+                return EventoMapper.ToDTOList(eventos);
             }
             catch (Exception ex)
             {
@@ -115,7 +115,7 @@ namespace AppEventos.Application.Services
                 if (eventos == null)
                     return null;
 
-                return AppEventoMapper.ToDTOList(eventos);
+                return EventoMapper.ToDTOList(eventos);
             }
             catch (Exception ex)
             {
@@ -132,7 +132,7 @@ namespace AppEventos.Application.Services
                 if (evento == null)
                     return null;
 
-                return AppEventoMapper.ToDto(evento);
+                return EventoMapper.ToDto(evento);
             }
             catch (Exception ex)
             {

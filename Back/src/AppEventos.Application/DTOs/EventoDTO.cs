@@ -11,7 +11,7 @@ namespace AppEventos.Application.DTOs
 
         [Required(ErrorMessage = "{0} é obrigatória.")]
         [Display(Name = "Data do evento")]
-        public string DataEvento { get; set; }
+        public DateTime? DataEvento { get; set; }
 
         [Required(ErrorMessage = "{0} é obrigatório."),
             StringLength(50, MinimumLength = 3, ErrorMessage = "{0} deve ter entre 3 e 50 caracteres.")]

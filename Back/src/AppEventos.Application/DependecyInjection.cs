@@ -9,7 +9,8 @@ namespace AppEventos.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IEventoService, EventoService>();
-            
+            services.AddScoped<ILoteService, LoteService>();
+
             return services;
         }
     }

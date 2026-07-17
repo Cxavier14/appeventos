@@ -18,6 +18,7 @@ export class EventoDetalheComponent implements OnInit {
   locale = 'pt-br'
   form: UntypedFormGroup = new UntypedFormGroup({});
   evento = {} as Evento;
+  entityState = 'post';
 
   get fc(): any {
     return this.form.controls;
@@ -25,8 +26,10 @@ export class EventoDetalheComponent implements OnInit {
 
   get bsConfig(): any {
     return {
-      isAnimated: true, adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY hh:mm a', containerClass: 'theme-default',
+      isAnimated: true,
+      adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY hh:mm a',
+      containerClass: 'theme-default',
       showWeekNumbers: false
     };
   }
@@ -42,18 +45,19 @@ export class EventoDetalheComponent implements OnInit {
     const eventId = this.actRoute.snapshot.paramMap.get('id');
 
     if(eventId !== null){
+      this.entityState = 'put';
       this.spinner.show();
-      this.eventoService.getEventoById(+eventId).subscribe(
-        (evento: Evento) => {
-          this.evento = {...evento};
-          this.form.patchValue(evento);
+      this.eventoService.getEventoById(+eventId).subscribe({
+        next: (evento: Evento) => {
+          this.evento = { ...evento };
+          this.form.patchValue(this.evento);
         },
-        (error) => {
-          this.spinner.hide();
-          this.toastr.error('Erro ao carregar Evento', 'Erro!');
+        error: (error: any) => {
+          this.toastr.error('Erro ao tentar carregar evento.', 'Erro!');
           console.error(error);
         },
-        () => this.spinner.hide()
+        complete: () => this.spinner.hide()
+        }        
       );
     }
    }
@@ -81,5 +85,28 @@ export class EventoDetalheComponent implements OnInit {
 
   public cssValidator(fieldForm: UntypedFormControl): any {
     return { 'is-invalid': fieldForm.errors && fieldForm.touched}
+  }
+
+  public saveChanges(): void {
+    this.spinner.show();
+    if (this.form.valid) {
+      
+      this.evento = (this.entityState === 'post') 
+          ? { ...this.form.value } 
+          : {id: this.evento.id, ...this.form.value };
+      
+      const service = (this.entityState === 'post')
+        ? this.eventoService.post(this.evento)
+        : this.eventoService.put(this.evento);
+
+      service.subscribe({
+        next: () => 
+          this.toastr.success('Evento salvo com sucesso!', 'Sucesso!'),
+        error: (error: any) => {          
+          this.toastr.error('Erro ao tentar salvar evento.', 'Erro!');
+          console.error(error);
+        }
+      }).add(() => this.spinner.hide());
+    }
   }
 }

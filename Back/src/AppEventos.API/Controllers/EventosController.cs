@@ -111,8 +111,9 @@ namespace AppEventos.API.Controllers
                 var result = await _eventoService.GetEventoByIdAsync(id);
                 if (result == null) return NoContent();
 
-                return await _eventoService.DeleteEvento(id) ?
-                    Ok("Evento deletado com sucesso!") : throw new Exception("Ocorreu um erro inesperado!");
+                return await _eventoService.DeleteEvento(id) 
+                    ? Ok(new { message = "Deletado" }) 
+                    : throw new Exception("Ocorreu um erro inesperado!");
             }
             catch (Exception e)
             {

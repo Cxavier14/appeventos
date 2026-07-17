@@ -12,34 +12,21 @@ using System.Threading.Tasks;
 namespace AppEventos.Application.Helpers
 {
     [Mapper]
-    public static partial class AppEventoMapper
+    public static partial class EventoMapper
     {
         // ---------- Evento ----------
-        [MapProperty(nameof(Evento.DataEvento), nameof(EventoDTO.DataEvento), Use = nameof(DateTimeToString))]
+        //[MapProperty(nameof(Evento.DataEvento), nameof(EventoDTO.DataEvento), Use = nameof(DateTimeToString))]
         public static partial EventoDTO ToDto(Evento evento);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
         //[MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
-        [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
+        //[MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
         public static partial Evento ToEntity(EventoDTO dto);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
         //[MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
-        [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
+        //[MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
         public static partial void UpdateEntity(EventoDTO dto, Evento entity);
-
-        // ---------- Lote ----------
-        [MapperIgnoreTarget(nameof(LoteDTO.Evento))]
-        [MapperIgnoreSource(nameof(Lote.Evento))]
-        [MapProperty(nameof(Lote.DataInicio), nameof(LoteDTO.DataInicio), Use = nameof(DateTimeToString))]
-        [MapProperty(nameof(Lote.DataFim), nameof(LoteDTO.DataFim), Use = nameof(DateTimeToString))]
-        public static partial LoteDTO ToDto(Lote lote);
-
-        [MapperIgnoreTarget(nameof(Lote.Evento))]
-        [MapperIgnoreSource(nameof(LoteDTO.Evento))]
-        [MapProperty(nameof(LoteDTO.DataInicio), nameof(Lote.DataInicio), Use = nameof(StringToDateTime))]
-        [MapProperty(nameof(LoteDTO.DataFim), nameof(Lote.DataFim), Use = nameof(StringToDateTime))]
-        public static partial Lote ToEntity(LoteDTO dto);
 
         // ---------- RedeSocial ----------
         [MapperIgnoreTarget(nameof(RedeSocialDTO.Evento))]

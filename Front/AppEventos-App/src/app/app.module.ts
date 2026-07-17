@@ -57,6 +57,7 @@ defineLocale('pt-br', ptBrLocale);
    ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

@@ -12,6 +12,7 @@
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0", // Suppress warnings about using deprecated APIs
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
