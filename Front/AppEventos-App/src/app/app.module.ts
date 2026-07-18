@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -38,49 +38,43 @@ import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 
 defineLocale('pt-br', ptBrLocale);
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    EventosComponent,
-    PalestrantesComponent,
-    NavComponent,
-    DateTimeFormatPipe,
-    TitleComponent,
-    ContatosComponent,
-    DashboardComponent,
-    PerfilComponent,
-    EventoDetalheComponent,
-    EventoListaComponent,
-    UserComponent,
-    LoginComponent,
-    RegistrationComponent
-   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    CommonModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    CollapseModule.forRoot(),
-    TooltipModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    BsDatepickerModule.forRoot(),
-    ModalModule.forRoot(),
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-      progressBar: true
-    }),
-    NgxSpinnerModule
-  ],
-  providers: [
-    EventoService
-  ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        EventosComponent,
+        PalestrantesComponent,
+        NavComponent,
+        DateTimeFormatPipe,
+        TitleComponent,
+        ContatosComponent,
+        DashboardComponent,
+        PerfilComponent,
+        EventoDetalheComponent,
+        EventoListaComponent,
+        UserComponent,
+        LoginComponent,
+        RegistrationComponent
+    ],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        CollapseModule.forRoot(),
+        TooltipModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        ModalModule.forRoot(),
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: true,
+            progressBar: true
+        }),
+        NgxSpinnerModule], providers: [
+        EventoService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
