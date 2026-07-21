@@ -3,9 +3,10 @@ import { AbstractControlOptions, UntypedFormBuilder, UntypedFormGroup, Validator
 import { ValidatorField } from '@app/helpers/validator-field';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss']
+    selector: 'app-perfil',
+    templateUrl: './perfil.component.html',
+    styleUrls: ['./perfil.component.scss'],
+    standalone: false
 })
 export class PerfilComponent implements OnInit {
 

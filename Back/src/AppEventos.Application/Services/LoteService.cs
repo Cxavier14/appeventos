@@ -74,7 +74,7 @@ namespace AppEventos.Application.Services
         public async Task<List<LoteDTO>> SaveLotes(int eventoId, List<LoteDTO> lotesList)
         {
             var lotes = await _lotePersistence.GetLotesByEventoIdAsync(eventoId);
-            if ((lotes is null) || (lotes.Count <= 0))
+            if ((lotesList is null) || (lotesList.Count <= 0))
                 return null;
 
             foreach (var model in lotesList)

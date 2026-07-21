@@ -3,9 +3,10 @@ import { AbstractControlOptions, UntypedFormBuilder, FormControl, UntypedFormGro
 import { ValidatorField } from '@app/helpers/validator-field';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+    selector: 'app-registration',
+    templateUrl: './registration.component.html',
+    styleUrls: ['./registration.component.scss'],
+    standalone: false
 })
 export class RegistrationComponent implements OnInit {
 
