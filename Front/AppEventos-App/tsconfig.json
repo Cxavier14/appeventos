@@ -12,8 +12,7 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
-    //"ignoreDeprecations": "6.0", // Suppress warnings about using deprecated APIs
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
