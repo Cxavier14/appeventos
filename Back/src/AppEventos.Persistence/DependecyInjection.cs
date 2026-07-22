@@ -17,6 +17,7 @@ namespace AppEventos.Persistence
 
             services.AddScoped<IBasePersistence, BasePersistence>();
             services.AddScoped<IEventoPersistence, EventoPersistence>();
+            services.AddScoped<ILotePersistence, LotePersistence>();
 
             return services;
         }

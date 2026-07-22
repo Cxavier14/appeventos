@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AppEventos.Application.DTOs
 {
@@ -16,11 +17,11 @@ namespace AppEventos.Application.DTOs
         
         [Required(ErrorMessage = "{0} é obrigatória."),
             Display(Name = "Data de início")]
-        public string DataInicio { get; set; }
+        public DateTime? DataInicio { get; set; }
         
         [Required(ErrorMessage = "{0} é obrigatória."),
             Display(Name = "Data do fim")]
-        public string DataFim { get; set; }
+        public DateTime? DataFim { get; set; }
         
         [Required(ErrorMessage = "{0} é obrigatório."),
             Display(Name = "Quantidade"),

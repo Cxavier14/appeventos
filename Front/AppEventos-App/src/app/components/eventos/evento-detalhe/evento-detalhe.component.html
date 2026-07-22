@@ -5,75 +5,97 @@
         <div class="form-group col-md-12">
           <label>Tema</label>
           <input type="text" class="form-control" [ngClass]="cssValidator(fc.tema)"
-          formControlName="tema" placeholder="Insira o Tema">
-          <div *ngIf="fc.tema.errors?.required && fc.tema.touched" class="invalid-feedback">
-            Tema é obrigatório
-          </div>
-          <div *ngIf="fc.tema.errors?.minlength && fc.tema.touched" class="invalid-feedback">
-            Tema deve conter no mínimo 4 caracteres
-          </div>
-          <div *ngIf="fc.tema.errors?.maxlength && fc.tema.touched" class="invalid-feedback">
-            Tema deve conter no máximo 50 caracteres
-          </div>
+            formControlName="tema" placeholder="Insira o Tema">
+          @if (fc.tema.errors?.required && fc.tema.touched) {
+            <div class="invalid-feedback">
+              Tema é obrigatório
+            </div>
+          }
+          @if (fc.tema.errors?.minlength && fc.tema.touched) {
+            <div class="invalid-feedback">
+              Tema deve conter no mínimo 4 caracteres
+            </div>
+          }
+          @if (fc.tema.errors?.maxlength && fc.tema.touched) {
+            <div class="invalid-feedback">
+              Tema deve conter no máximo 50 caracteres
+            </div>
+          }
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-8">
           <label>Local</label>
           <input type="text" class="form-control" [ngClass]="cssValidator(fc.local)"
-          formControlName="local" placeholder="">
-          <div *ngIf="fc.tema.errors?.required && fc.local.touched" class="invalid-feedback">
-            Local é obrigatório
-          </div>
+            formControlName="local" placeholder="">
+          @if (fc.tema.errors?.required && fc.local.touched) {
+            <div class="invalid-feedback">
+              Local é obrigatório
+            </div>
+          }
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
           <input type="datetime" class="form-control" [ngClass]="cssValidator(fc.dataEvento)"
-          value="{{ evento.dataEvento | DateTimePipeFormat }}"
-          formControlName="dataEvento" bsDatepicker [bsConfig]="bsConfig" placeholder="Data do Evento">
-          <div *ngIf="fc.tema.errors?.required && fc.dataEvento.touched" class="invalid-feedback">
-            Data e hora são obrigatórios
-          </div>
+            value="{{ evento.dataEvento | DateTimePipeFormat }}"
+            formControlName="dataEvento" bsDatepicker [bsConfig]="bsConfig" placeholder="Data do Evento">
+          @if (fc.tema.errors?.required && fc.dataEvento.touched) {
+            <div class="invalid-feedback">
+              Data e hora são obrigatórios
+            </div>
+          }
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-2">
           <label>Quantidade de Pessoas</label>
           <input type="number" class="form-control" [ngClass]="cssValidator(fc.qtdPessoas)"
-          formControlName="qtdPessoas" placeholder="">
-          <div *ngIf="fc.qtdPessoas.errors?.required && fc.qtdPessoas.touched" class="invalid-feedback">
-            Quantidade de pessoas é obrigatório
-          </div>
-          <div *ngIf="fc.qtdPessoas.errors?.max && fc.qtdPessoas.touched" class="invalid-feedback">
-            Limite máximo de pessoas é de 120.000
-          </div>
+            formControlName="qtdPessoas" placeholder="">
+          @if (fc.qtdPessoas.errors?.required && fc.qtdPessoas.touched) {
+            <div class="invalid-feedback">
+              Quantidade de pessoas é obrigatório
+            </div>
+          }
+          @if (fc.qtdPessoas.errors?.max && fc.qtdPessoas.touched) {
+            <div class="invalid-feedback">
+              Limite máximo de pessoas é de 120.000
+            </div>
+          }
         </div>
         <div class="form-group col-md-2">
           <label>Telefone</label>
           <input type="text" class="form-control" [ngClass]="cssValidator(fc.telefone)"
-          formControlName="telefone" placeholder="(00) 90000-0000">
-          <div *ngIf="fc.telefone.errors?.required && fc.telefone.touched" class="invalid-feedback">
-            Telefone é obrigatório
-          </div>
+            formControlName="telefone" placeholder="(00) 90000-0000">
+          @if (fc.telefone.errors?.required && fc.telefone.touched) {
+            <div class="invalid-feedback">
+              Telefone é obrigatório
+            </div>
+          }
         </div>
         <div class="form-group col-md-4">
           <label>Email</label>
           <input type="text" class="form-control" [ngClass]="cssValidator(fc.email)"
-          formControlName="email" placeholder="e-mail">
-          <div *ngIf="fc.email.errors?.required && fc.email.touched" class="invalid-feedback">
-            Email é obrigatório
-          </div>
-          <div *ngIf="fc.email.errors?.email && fc.email.touched" class="invalid-feedback">
-            Email deve ser válido
-          </div>
+            formControlName="email" placeholder="e-mail">
+          @if (fc.email.errors?.required && fc.email.touched) {
+            <div class="invalid-feedback">
+              Email é obrigatório
+            </div>
+          }
+          @if (fc.email.errors?.email && fc.email.touched) {
+            <div class="invalid-feedback">
+              Email deve ser válido
+            </div>
+          }
         </div>
         <div class="form-group col-md-4">
           <label>Imagem</label>
           <input type="text" class="form-control" [ngClass]="cssValidator(fc.imagemURL)"
-          formControlName="imagemURL" placeholder="imagem">
-          <div *ngIf="fc.imagemURL.errors?.required && fc.imagemURL.touched" class="invalid-feedback">
-            imagem é obrigatório
-          </div>
+            formControlName="imagemURL" placeholder="imagem">
+          @if (fc.imagemURL.errors?.required && fc.imagemURL.touched) {
+            <div class="invalid-feedback">
+              imagem é obrigatório
+            </div>
+          }
         </div>
       </div>
     </div>

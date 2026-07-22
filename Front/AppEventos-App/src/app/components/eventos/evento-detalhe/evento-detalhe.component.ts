@@ -10,9 +10,10 @@ import { EventoService } from './../../../services/evento.service';
 import { Evento } from '@app/models/evento';
 
 @Component({
-  selector: 'app-evento-detalhe',
-  templateUrl: './evento-detalhe.component.html',
-  styleUrls: ['./evento-detalhe.component.scss']
+    selector: 'app-evento-detalhe',
+    templateUrl: './evento-detalhe.component.html',
+    styleUrls: ['./evento-detalhe.component.scss'],
+    standalone: false
 })
 export class EventoDetalheComponent implements OnInit {
   locale = 'pt-br'
