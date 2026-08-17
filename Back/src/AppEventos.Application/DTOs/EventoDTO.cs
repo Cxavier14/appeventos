@@ -33,7 +33,7 @@ namespace AppEventos.Application.DTOs
         [Required(ErrorMessage = "{0} é obrigatório.")]
         [EmailAddress(ErrorMessage = "{0} precisa ser um e-mail válido.")]
         public string Email { get; set; }
-        //public IEnumerable<LoteDTO> Lotes { get; set; }
+        public IEnumerable<LoteDTO> Lotes { get; set; }
         //public IEnumerable<RedeSocialDTO> RedesSociais { get; set; }
         //public IEnumerable<PalestranteDTO> Palestrantes { get; set; }
     }

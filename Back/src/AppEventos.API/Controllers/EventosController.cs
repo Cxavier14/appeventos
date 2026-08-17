@@ -9,14 +9,9 @@ namespace AppEventos.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EventosController : ControllerBase
+    public class EventosController(IEventoService eventoService) : ControllerBase
     {
-        private readonly IEventoService _eventoService;
-
-        public EventosController(IEventoService eventoService)
-        {
-            _eventoService = eventoService;
-        }
+        private readonly IEventoService _eventoService = eventoService;
 
         [HttpGet]
         public async Task<IActionResult> Get()

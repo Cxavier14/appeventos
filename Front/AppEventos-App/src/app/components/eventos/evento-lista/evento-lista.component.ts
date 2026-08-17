@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '@app/models/evento';
+import { Lote } from '@app/models/lote';
 import { EventoService } from '@app/services/evento.service';
 
 @Component({
@@ -63,10 +64,20 @@ export class EventoListaComponent implements OnInit {
         this.eventos = _eventos;
         this.eventosFiltrados = this.eventos;
       },
-      error: (error: any) => {        
+      error: (error: any) => {
         this.toastr.error('Erro ao tentar carregar os eventos', 'Erro');
-      }      
+        console.error(error);
+      }
     }).add(() => this.spinner.hide());
+  }
+
+  public getLotesConcat(lotes: Lote[] | undefined): string {
+    if (!lotes) return '';
+
+    return [...lotes]
+      .sort((a, b) => (a.id ?? 0) - (b.id ?? 0))
+      .map(lote => lote.nome)
+      .join(', ');
   }
 
   openModal(event: any, template: TemplateRef<any>, id: number) {
@@ -83,16 +94,13 @@ export class EventoListaComponent implements OnInit {
         if(result.message === 'Deletado'){
           this.toastr.success('Evento deletado com sucesso!', 'Deletado!');
           this.getEventos();
-          this.spinner.hide()
         }
       },
       error: (error: any) => {
         this.toastr.error(`Erro ao tentar deletar o evento ${this.eventoId}`, 'Erro');
-        this.spinner.hide()
         console.error(error);
-      },
-      complete: () => this.spinner.hide()
-    });
+      }
+    }).add(() => this.spinner.hide());
   }
 
   decline(): void {

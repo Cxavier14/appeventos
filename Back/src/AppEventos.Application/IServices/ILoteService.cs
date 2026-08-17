@@ -7,6 +7,7 @@ namespace AppEventos.Application.IServices
     public interface ILoteService
     {
         Task<List<LoteDTO>> SaveLotes(int eventoId, List<LoteDTO> lotes);
+        Task<LoteDTO> SaveLote(int eventoId, LoteDTO lote);
         Task<bool> DeleteLote(int eventoId, int id);
 
         Task<List<LoteDTO>> GetLotesByEventoIdAsync(int eventoId);

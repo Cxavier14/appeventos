@@ -71,25 +71,20 @@ namespace AppEventos.Application.Services
             }
         }
 
-        public async Task<List<LoteDTO>> SaveLotes(int eventoId, List<LoteDTO> lotesList)
+        public async Task<LoteDTO> SaveLote(int eventoId, LoteDTO lote)
         {
-            var lotes = await _lotePersistence.GetLotesByEventoIdAsync(eventoId);
-            if ((lotesList is null) || (lotesList.Count <= 0))
-                return null;
-
-            foreach (var model in lotesList)
+            if (lote.Id <= 0)
+                await SaveNewLote(eventoId, lote);
+            else
             {
-                if (model.Id <= 0)
-                    await SaveLote(eventoId, model);
-                else
-                    await UpdateLote(eventoId, lotes, model);
+                var lotes = await _lotePersistence.GetLotesByEventoIdAsync(eventoId);
+                await UpdateLote(eventoId, lotes, lote);
             }
-
-            var result = await _lotePersistence.GetLotesByEventoIdAsync(eventoId);
-            return LoteMapper.ToDTOList(result);
+            var result = await _lotePersistence.GetLoteByIdsAsync(eventoId, lote.Id);
+            return LoteMapper.ToDto(result);
         }
 
-        private async Task SaveLote(int eventoId, LoteDTO model)
+        private async Task SaveNewLote(int eventoId, LoteDTO model)
         {
             try
             {

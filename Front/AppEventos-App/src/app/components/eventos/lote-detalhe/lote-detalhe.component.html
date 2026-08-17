@@ -1,0 +1,90 @@
+<div class="card rounded shadow-sm">
+  <form [formGroup]="form">
+    <div class="p-3">
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Nome</label>
+          <input type="text" class="form-control" [ngClass]="cssValidator(fc.nome)" formControlName="nome"
+            placeholder="Insira o Nome">
+          @if (fc.nome.errors?.required && fc.nome.touched) {
+          <div class="invalid-feedback">
+            Nome é obrigatório
+          </div>
+          }
+          @if (fc.nome.errors?.minlength && fc.nome.touched) {
+          <div class="invalid-feedback">
+            Nome deve conter no mínimo 4 caracteres
+          </div>
+          }
+          @if (fc.nome.errors?.maxlength && fc.nome.touched) {
+          <div class="invalid-feedback">
+            Nome deve conter no máximo 50 caracteres
+          </div>
+          }
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label>Preço</label>
+          <input type="number" class="form-control" [ngClass]="cssValidator(fc.preco)" formControlName="preco"
+            placeholder="Preço do Lote">
+          @if (fc.preco.errors?.required && fc.preco.touched) {
+          <div class="invalid-feedback">
+            Preço é obrigatório
+          </div>
+          }
+        </div>
+        <div class="form-group col-md-4">
+          <label>data início</label>
+          <input type="datetime" class="form-control" [ngClass]="cssValidator(fc.dataInicio)"
+            value="{{ lote.dataInicio | DateTimePipeFormat }}" formControlName="dataInicio" bsDatepicker
+            [bsConfig]="bsConfig" placeholder="Data início">
+          <!-- @if (fc.dataInicio.errors?.required && fc.dataInicio.touched) {
+            <div class="invalid-feedback">
+              Data e hora são obrigatórios
+            </div>
+          } -->
+        </div>
+        <div class="form-group col-md-4">
+          <label>Data fim</label>
+          <input type="datetime" class="form-control" [ngClass]="cssValidator(fc.dataFim)"
+            value="{{ lote.dataFim | DateTimePipeFormat }}" formControlName="dataFim" bsDatepicker
+            [bsConfig]="bsConfig" placeholder="Data fim">
+          <!-- @if (fc.dataFim.errors?.required && fc.dataFim.touched) {
+            <div class="invalid-feedback">
+              Data e hora são obrigatórios
+            </div>
+          } -->
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>Quantidade</label>
+          <input type="number" class="form-control" [ngClass]="cssValidator(fc.quantidade)" formControlName="quantidade"
+            placeholder="">
+          <!-- @if (fc.quantidade.errors?.required && fc.quantidade.touched) {
+            <div class="invalid-feedback">
+              Quantidade é obrigatório
+            </div>
+          }
+          @if (fc.quantidade.errors?.max && fc.quantidade.touched) {
+            <div class="invalid-feedback">
+              Limite máximo é de 120.000
+            </div>
+          } -->
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success" [disabled]="!form.valid" (click)="saveChanges()">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Salvar lote
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
