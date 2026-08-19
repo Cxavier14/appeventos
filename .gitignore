@@ -506,3 +506,4 @@ Thumbs.db
 
 # Angular
 .angular
+/Front/AppEventos-App/src/environments/environment.prod.ts

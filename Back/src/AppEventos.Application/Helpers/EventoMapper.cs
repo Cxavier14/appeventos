@@ -16,16 +16,17 @@ namespace AppEventos.Application.Helpers
     {
         // ---------- Evento ----------
         //[MapProperty(nameof(Evento.DataEvento), nameof(EventoDTO.DataEvento), Use = nameof(DateTimeToString))]
+        [MapProperty(nameof(Evento.DataEvento), nameof(EventoDTO.DataEvento), Use = nameof(ParseDateTimeKind))]
         public static partial EventoDTO ToDto(Evento evento);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
         //[MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
-        //[MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
+        [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(ParseDateTimeKind))]
         public static partial Evento ToEntity(EventoDTO dto);
 
         [MapperIgnoreTarget(nameof(Evento.PalestrantesEventos))]
         //[MapperIgnoreSource(nameof(EventoDTO.Palestrantes))]
-        //[MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(StringToDateTime))]
+        [MapProperty(nameof(EventoDTO.DataEvento), nameof(Evento.DataEvento), Use = nameof(ParseDateTimeKind))]
         public static partial void UpdateEntity(EventoDTO dto, Evento entity);
 
         // ---------- RedeSocial ----------
@@ -71,6 +72,14 @@ namespace AppEventos.Application.Helpers
                 out var parsed)) return null;
 
             return DateTime.SpecifyKind(parsed, DateTimeKind.Utc);
+        }
+
+        private static DateTime? ParseDateTimeKind(DateTime? date)
+        {
+            if (date.GetValueOrDefault().Kind == DateTimeKind.Utc)
+                return date;
+            
+            return DateTime.SpecifyKind(date.GetValueOrDefault(), DateTimeKind.Utc);
         }
     }
 }

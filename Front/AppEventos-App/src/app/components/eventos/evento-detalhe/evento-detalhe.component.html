@@ -112,3 +112,65 @@
     </div>
   </form>
 </div>
+
+@if(editMode){
+  <div class="card rounded shadow-sm p-3 mt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Lotes do Evento</h5>
+      <a class="d-flex align-items-center btn btn-outline-primary" (click)="newLote()">
+        <i class="fa fa-circle-plus my-1"></i>
+        <b class="ml-1 d-none d-sm-block">Novo lote</b>
+      </a>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark border border-success">
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th class="d-none d-md-table-cell">Quantidade</th>
+          <th>Preço</th>
+          <th class="d-none d-md-table-cell">Data início</th>
+          <th class="d-none d-md-table-cell">Data fim</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      @if (lotesList && lotesList.length) {
+        <tbody>
+          @for (lote of lotesList; track lote.id) {
+            <tr (click)="detalheLote(lote.id)" style="cursor: pointer;">
+              <td>{{ lote.id }}</td>
+              <td>{{ lote.nome }}</td>
+              <td class="d-none d-md-table-cell">{{ lote.quantidade }}</td>
+              <td>{{ lote.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="d-none d-md-table-cell">{{ lote.dataInicio | DateTimePipeFormat }}</td>
+              <td class="d-none d-md-table-cell">{{ lote.dataFim | DateTimePipeFormat }}</td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir"
+                  (click)="openDeleteModal($event, templateDelete, lote)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      }
+      @if (!lotesList.length) {
+        <tfoot>
+          <tr>
+            <td colspan="7" class="text-center">
+              <h4>Nenhum lote encontrado</h4>
+            </td>
+          </tr>
+        </tfoot>
+      }
+    </table>
+  </div>
+}
+
+<ng-template #templateDelete>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar o lote {{ loteAtual.nome }}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineDelete()">Não</button>
+  </div>
+</ng-template>

@@ -1,0 +1,116 @@
+<form [formGroup]="form" (ngSubmit)="saveChanges()">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ editMode ? 'Editar Lote' : 'Novo Lote' }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label>Nome</label>
+        <input type="text" class="form-control" [ngClass]="cssValidator(fc.nome)" formControlName="nome"
+          placeholder="Insira o Nome">
+        @if (fc.nome.errors?.required && fc.nome.touched) {
+        <div class="invalid-feedback d-block">
+          Nome é obrigatório
+        </div>
+        }
+        @if (fc.nome.errors?.minlength && fc.nome.touched) {
+        <div class="invalid-feedback d-block">
+          Nome deve conter no mínimo 4 caracteres
+        </div>
+        }
+        @if (fc.nome.errors?.maxlength && fc.nome.touched) {
+        <div class="invalid-feedback d-block">
+          Nome deve conter no máximo 50 caracteres
+        </div>
+        }
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Preço</label>
+        <input type="text" inputmode="decimal" class="form-control" [ngClass]="cssValidator(fc.preco)"
+          [value]="precoDisplay" (focus)="focusPreco($event)"
+          (input)="updatePreco($event)" (blur)="blurPreco()"
+          placeholder="Preço do Lote">
+        @if (fc.preco.errors?.required && fc.preco.touched) {
+        <div class="invalid-feedback d-block">
+          Preço é obrigatório
+        </div>
+        }
+        @if (fc.preco.errors?.min && fc.preco.touched) {
+        <div class="invalid-feedback d-block">
+          Preço deve ser maior que zero
+        </div>
+        }
+      </div>
+      <div class="form-group col-md-4">
+        <label>Data início</label>
+        <input type="datetime" class="form-control" [ngClass]="cssValidator(fc.dataInicio)" formControlName="dataInicio"
+          bsDatepicker [bsConfig]="bsConfig" placeholder="Data início">
+        @if (fc.dataInicio.errors?.required && fc.dataInicio.touched) {
+        <div class="invalid-feedback d-block">
+          Data início é obrigatória
+        </div>
+        }
+      </div>
+      <div class="form-group col-md-4">
+        <label>Data fim</label>
+        <input type="datetime" class="form-control" [ngClass]="cssValidator(fc.dataFim)" formControlName="dataFim"
+          bsDatepicker [bsConfig]="bsConfig" placeholder="Data fim">
+        @if (fc.dataFim.errors?.required && fc.dataFim.touched) {
+        <div class="invalid-feedback d-block">
+          Data fim é obrigatória
+        </div>
+        }
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Quantidade</label>
+        <input type="number" min="1" class="form-control" [ngClass]="cssValidator(fc.quantidade)"
+          formControlName="quantidade" placeholder="">
+        @if (fc.quantidade.errors?.required && fc.quantidade.touched) {
+        <div class="invalid-feedback d-block">
+          Quantidade é obrigatória
+        </div>
+        }
+        @if (fc.quantidade.errors?.min && fc.quantidade.touched) {
+        <div class="invalid-feedback d-block">
+          Quantidade deve ser no mínimo 1
+        </div>
+        }
+        @if (fc.quantidade.errors?.max && fc.quantidade.touched) {
+        <div class="invalid-feedback d-block">
+          Limite máximo é de 120.000
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer d-flex">
+    @if (editMode) {
+      <button type="button" class="btn btn-danger mr-auto" (click)="openDeleteModal(templateDelete)">
+        Excluir
+      </button>
+    }
+    <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
+      Cancelar
+    </button>
+    <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+      Salvar lote
+    </button>
+  </div>
+</form>
+
+<ng-template #templateDelete>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja deletar o lote {{ lote.nome }}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineDelete()">Não</button>
+  </div>
+</ng-template>

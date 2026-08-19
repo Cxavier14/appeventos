@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,15 +29,18 @@ import { PalestrantesComponent } from './components/palestrantes/palestrantes.co
 import { TitleComponent } from './shared/title/title.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
+import { LoteDetalheComponent } from './components/eventos/lote-detalhe/lote-detalhe.component';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 
 import { EventoService } from './services/evento.service';
+import { LoteService } from './services/lote.service';
 
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 
 defineLocale('pt-br', ptBrLocale);
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({ declarations: [
         AppComponent,
@@ -50,12 +54,14 @@ defineLocale('pt-br', ptBrLocale);
         PerfilComponent,
         EventoDetalheComponent,
         EventoListaComponent,
+        LoteDetalheComponent,
         UserComponent,
         LoginComponent,
         RegistrationComponent
     ],
     bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA], imports: [BrowserModule,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
@@ -73,8 +79,10 @@ defineLocale('pt-br', ptBrLocale);
             preventDuplicates: true,
             progressBar: true
         }),
-        NgxSpinnerModule], providers: [
-        EventoService,
+        NgxSpinnerModule],
+        providers: [
+          EventoService,
+          LoteService,
         provideHttpClient(withInterceptorsFromDi())
     ] })
 export class AppModule { }

@@ -28,6 +28,5 @@ namespace AppEventos.Application.DTOs
             Range(1, 120000)]
         public int Quantidade { get; set; }
         public int EventoId { get; set; }
-        public EventoDTO Evento { get; set; }
     }
 }

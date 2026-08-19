@@ -22,14 +22,14 @@ namespace AppEventos.Persistence.Repositories
         public async Task<Evento[]> GetAllEventosAsync(bool includePalestrante = false)
         {
             IQueryable<Evento> query = _context.Eventos
-                .Include(e => e.Lotes)
-                .Include(e => e.RedesSociais);
+                .Include(e => e.Lotes);
+                //.Include(e => e.RedesSociais);
 
-            if (includePalestrante)
-            {
-                query = query.Include(pe => pe.PalestrantesEventos)
-                    .ThenInclude(pe => pe.Palestrante);
-            }
+            //if (includePalestrante)
+            //{
+            //    query = query.Include(pe => pe.PalestrantesEventos)
+            //        .ThenInclude(pe => pe.Palestrante);
+            //}
 
             query = query.AsNoTracking().OrderBy(e => e.Id);
 

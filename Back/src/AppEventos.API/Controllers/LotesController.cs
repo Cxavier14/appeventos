@@ -16,7 +16,7 @@ namespace AppEventos.API.Controllers
         private readonly ILoteService _loteService = loteService;
 
         [HttpGet("{eventoId}")]
-        public async Task<IActionResult> Get(int eventoId)
+        public async Task<IActionResult> GetAll(int eventoId)
         {
             try
             {
@@ -32,15 +32,48 @@ namespace AppEventos.API.Controllers
             }
         }
 
-        [HttpPut("{eventoId}")]
-        public async Task<IActionResult> Put(int eventoId, List<LoteDTO> models)
+        [HttpGet("{eventoId}/{loteId}")]
+        public async Task<IActionResult> GetById(int eventoId, int loteId)
         {
             try
             {
-                var lotes = await _loteService.SaveLotes(eventoId, models);
-                if (lotes == null) return NoContent();
+                var lote = await _loteService.GetLoteByIdsAsync(eventoId, loteId);
+                if (lote == null) return NoContent();
 
-                return Ok(lotes);
+                return Ok(lote);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Erro ao tentar recuperar os lotes. Erro: {e.Message}");
+            }
+        }
+
+        [HttpPost("{eventoId}")]
+        public async Task<IActionResult> Post(int eventoId, LoteDTO model)
+        {
+            try
+            {
+                var lote = await _loteService.SaveLote(eventoId, model);
+                if (lote == null) return NoContent();
+                return Ok(lote);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                $"Erro ao tentar salvar os lotes. Erro: {e.Message}");
+            }
+        }
+
+        [HttpPut("{eventoId}")]
+        public async Task<IActionResult> Put(int eventoId, LoteDTO model)
+        {
+            try
+            {
+                var lote = await _loteService.SaveLote(eventoId, model);
+                if (lote == null) return NoContent();
+
+                return Ok(lote);
             }
             catch (Exception e)
             {
