@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { LoteService } from './services/lote.service';
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 
 defineLocale('pt-br', ptBrLocale);
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({ declarations: [
         AppComponent,

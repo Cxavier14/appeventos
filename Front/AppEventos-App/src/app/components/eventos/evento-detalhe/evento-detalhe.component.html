@@ -114,122 +114,63 @@
 </div>
 
 @if(editMode){
-  <div class="card rounded shadow-sm p-3">
-  <div class="d-flex justify-content-end">
-    <a class="d-flex align-items-center btn btn-outline-primary" (click)="newLote(templateLote)">
-      <i class="fa fa-circle-plus my-1"></i>
-      <b class="ml-1 d-none d-sm-block">Novo lote</b>
-    </a>
-  </div>
-  <table class="table table-striped table-hover">
-    <thead class="thead-dark border border-success" >
-      <tr>
-        <th>#</th>
-        <th>Nome</th>
-        <th class="d-none d-md-table-cell">Quantidade</th>
-        <th>Preço</th>
-        <th class="d-none d-md-table-cell">Data início</th>
-        <th class="d-none d-md-table-cell">Data fim</th>
-      </tr>
-    </thead>
-    @if (lotes && lotes.length) {
-      <tbody>
-        @for (lote of lotes; track lote;) {
-          <tr (click)="detalheLote(lote.id)" style="cursor: pointer;">
-            <td>{{lote.nome}}</td>
-            <td>{{lote.quantidade}}</td>
-            <td class="d-none d-md-table-cell">{{lote.preco}}</td>
-            <td>{{lote.dataInicio | DateTimePipeFormat}}</td>
-            <td class="d-none d-md-table-cell">{{lote.dataFim | DateTimePipeFormat}}</td>
-            <td>
-              <!--<button type="button" class="btn btn-danger" tooltip="Excluir" (click)="openModal($event, template, evento.id)">
-                <i class="fa fa-trash"></i>
-              </button>-->
+  <div class="card rounded shadow-sm p-3 mt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Lotes do Evento</h5>
+      <a class="d-flex align-items-center btn btn-outline-primary" (click)="newLote()">
+        <i class="fa fa-circle-plus my-1"></i>
+        <b class="ml-1 d-none d-sm-block">Novo lote</b>
+      </a>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark border border-success">
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th class="d-none d-md-table-cell">Quantidade</th>
+          <th>Preço</th>
+          <th class="d-none d-md-table-cell">Data início</th>
+          <th class="d-none d-md-table-cell">Data fim</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      @if (lotesList && lotesList.length) {
+        <tbody>
+          @for (lote of lotesList; track lote.id) {
+            <tr (click)="detalheLote(lote.id)" style="cursor: pointer;">
+              <td>{{ lote.id }}</td>
+              <td>{{ lote.nome }}</td>
+              <td class="d-none d-md-table-cell">{{ lote.quantidade }}</td>
+              <td>{{ lote.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
+              <td class="d-none d-md-table-cell">{{ lote.dataInicio | DateTimePipeFormat }}</td>
+              <td class="d-none d-md-table-cell">{{ lote.dataFim | DateTimePipeFormat }}</td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir"
+                  (click)="openDeleteModal($event, templateDelete, lote)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      }
+      @if (!lotesList.length) {
+        <tfoot>
+          <tr>
+            <td colspan="7" class="text-center">
+              <h4>Nenhum lote encontrado</h4>
             </td>
           </tr>
-        }
-      </tbody>
-    }
-    @if (!lotes.length) {
-      <tfoot>
-        <tr>
-          <td colspan="8" class="text-center">
-            <h4>Nenhum lote encontrado</h4>
-          </td>
-        </tr>
-      </tfoot>
-    }
-  </table>
-</div>
+        </tfoot>
+      }
+    </table>
+  </div>
 }
 
-<ng-template #templateLote>
-  <div class="card rounded shadow-lg mt-4">
-    <!--<p>Form Value: {{ form.controls.lotes.value | json }}</p>-->
-      <div class="p-3">
-        <div class="d-flex border-bottom">
-          <h2 class="mr-auto">
-            Lote do Evento
-          </h2>
-          <h2>
-            <i class="fas fa-money-bill-wave"></i>
-          </h2>
-        </div>
-        <div class="form-row p-1">
-          <div [formGroup]="form" class="col">
-              <div class="border rounded p-2 mb-2">
-                <fieldset class="form-group">
-                  <legend class="d-flex justify-content-between capitalize">
-                </legend>
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label>Nome</label>
-                    <input type="text" class="form-control" formControlName="nome" placeholder="Lote">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>Quantidade</label>
-                    <input type="text" class="form-control" formControlName="quantidade" placeholder="000">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>Preço</label>
-                    <input type="text" currencyMask class="form-control" formControlName="preco" placeholder="R$ 0,00">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>Data Início</label>
-                    <input type="datetime-local" class="form-control"
-                    formControlName="dataInicio"
-                    placeholder="01/01/2019"
-                    bsDatepicker>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>Data Fim</label>
-                    <input type="datetime-local" class="form-control" formControlName="dataFim" placeholder="01/01/2019" bsDatepicker>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border">
-          Cancelar Alteração
-        </button>
-        <button class="btn btn-success" (click)="saveLote()">
-          Salvar Lote
-        </button>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-
-
-<ng-template #template>
+<ng-template #templateDelete>
   <div class="modal-body text-center">
-    <p>Tem certeza que deseja deletar o lote {{ this.loteAtual.nome }}?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    <p>Tem certeza que deseja deletar o lote {{ loteAtual.nome }}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineDelete()">Não</button>
   </div>
 </ng-template>
